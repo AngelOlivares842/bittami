@@ -3,22 +3,55 @@
 @theme {
   --color-bitta-pink: #ffb7d5;
   --color-bitta-purple: #9d8df1;
+  --color-ezquizo-dark: #0f0d15;
 }
 
 @layer base {
   body {
-    @apply bg-[#0b0d11] text-slate-200 antialiased overflow-x-hidden;
-    background: radial-gradient(circle at 50% -20%, rgba(157, 141, 241, 0.15), transparent 80%);
+    @apply bg-ezquizo-dark text-slate-100 antialiased overflow-x-hidden transition-colors duration-700;
   }
 }
 
-.glass-card {
-  @apply bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] 
-         transition-all duration-500 hover:border-bitta-pink/30 hover:bg-white/[0.05];
+/* --- MODO EZQUIZO (Flicker & Shaking) --- */
+.ezquizo-active {
+  animation: bg-flicker-slow 0.8s infinite ease-in-out;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+@keyframes bg-flicker-slow {
+  0%, 100% { background-color: #0f0d15; }
+  50% { background-color: #1e1a2b; }
 }
-.animate-float-bunny { animation: float 6s ease-in-out infinite; }
+
+.ezquizo-active .glass-card {
+  animation: ezquizo-ultra-shake 0.2s infinite cubic-bezier(.36,.07,.19,.97) both;
+  filter: hue-rotate(180deg) contrast(1.2) saturate(1.4);
+}
+
+@keyframes ezquizo-ultra-shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(2px, -2px); }
+  75% { transform: translate(-2px, 2px); }
+  100% { transform: translate(0,0); }
+}
+
+/* --- EXPLOSIÓN DE CORAZONES (HUG) --- */
+@keyframes heart-burst {
+  0% { transform: scale(0) translateY(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scale(1.2) translateY(-150px) rotate(20deg); opacity: 0; }
+}
+
+.animate-heart-burst {
+  animation: heart-burst 1.5s ease-out forwards;
+}
+
+/* --- UTILS --- */
+.glass-card {
+  @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2.5rem] 
+         transition-all duration-500 hover:border-bitta-pink/30;
+}
+
+.parallax-avatar {
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}

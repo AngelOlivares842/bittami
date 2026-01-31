@@ -18,10 +18,31 @@ const { title } = Astro.props;
 	</body>
 </html>
 
+<script>
+  // Lógica para el modo EZquizo
+  const toggleEzquizo = () => {
+    document.body.classList.toggle('ezquizo-active');
+    const isActive = document.body.classList.contains('ezquizo-active');
+    console.log(isActive ? "⚠️ MODO EZQUIZO ACTIVADO" : "✨ Modo Chill activado");
+  };
+
+  // Exponer la función globalmente para el terminal
+  window.toggleEzquizo = toggleEzquizo;
+</script>
+
 <style is:global>
-	@font-face {
-		font-family: 'Geist';
-		src: url('https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.0.3/files/geist-sans-latin-400-normal.woff2') format('woff2');
-	}
-	body { font-family: 'Geist', sans-serif; }
+  /* Filtro de color y vibración para el modo EZquizo */
+  .ezquizo-active {
+    filter: hue-rotate(45deg) saturate(1.2);
+    transition: filter 0.5s ease;
+  }
+
+  .ezquizo-active .glass-card {
+    animation: ezquizo-shake 0.5s infinite alternate ease-in-out;
+  }
+
+  @keyframes ezquizo-shake {
+    0% { transform: translate(0,0) rotate(0deg); border-color: rgba(255,255,255,0.1); }
+    100% { transform: translate(1px, 1px) rotate(0.1deg); border-color: var(--color-bitta-pink); }
+  }
 </style>

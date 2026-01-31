@@ -1,21 +1,30 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BentoGrid from '../components/BentoGrid';
-import StreamStatus from '../components/StreamStatus';
+import Terminal from '../components/Terminal';
 import '../../styles/global.css';
 ---
 
 <MainLayout title="Bitta 🐰 // Online">
 	<main class="min-h-screen py-16 px-4">
 		<header class="max-w-7xl mx-auto mb-16 px-6 flex justify-between items-center">
-            <StreamStatus client:load />
-            <div class="hidden md:block text-[10px] font-black tracking-[0.5em] text-white/20 uppercase">
-                Kal_warding // 2026
+            <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
+                <span class="text-[10px] font-black tracking-[0.2em] uppercase opacity-70">Status: En el EZquizo</span>
+            </div>
+            
+            <div class="hidden md:block text-[8px] font-black tracking-[0.4em] text-white/20 uppercase">
+                Terminal: Escribe 'ezquizo' para activar
             </div>
 		</header>
 		
 		<section>
 			<BentoGrid client:load />
 		</section>
+
+		<Terminal client:load />
 	</main>
 </MainLayout>
