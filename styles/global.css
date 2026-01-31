@@ -34,14 +34,18 @@
   100% { transform: translate(0,0); }
 }
 
-/* --- MODO MIMIR: Efecto de Apagado de Luces --- */
+/* --- MODO YMIR: Estética de Hielo/Noche --- */
 .mimir-mode {
-  filter: brightness(0.3) contrast(1.2) saturate(0.5);
-  background-color: #050508 !important;
-  transition: all 2s ease-in-out;
+  filter: brightness(0.4) contrast(1.1) saturate(0.8);
+  background-color: #020205 !important;
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- MODO BUNNY: Lluvia de conejos --- */
+.mimir-mode .parallax-avatar img {
+  filter: drop-shadow(0 0 20px rgba(157, 141, 241, 0.5)) hue-rotate(45deg);
+}
+
+/* --- LLUVIA DE CONEJOS (BUNNY) --- */
 @keyframes bunny-fall {
   0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
   100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
@@ -50,7 +54,7 @@
 .bunny-rain {
   position: fixed;
   top: -10%;
-  font-size: 2rem;
+  font-size: 2.5rem;
   z-index: 1000;
   pointer-events: none;
   animation: bunny-fall 3s linear forwards;
@@ -68,24 +72,33 @@
 }
 
 /* --- SCROLLBAR ESPACIAL (Operations Hub) --- */
+/* Forzamos el selector para que no se escape */
+.ops-hub-scroll {
+  scrollbar-width: thin; /* Para Firefox */
+  scrollbar-color: #ffb7d5 rgba(255, 255, 255, 0.02);
+}
+
 .ops-hub-scroll::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
+  display: block !important;
 }
 
 .ops-hub-scroll::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
+  border-radius: 20px;
+  margin-block: 10px;
 }
 
 .ops-hub-scroll::-webkit-scrollbar-thumb {
   background: #ffb7d5;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 183, 213, 0.8);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 12px rgba(255, 183, 213, 0.6);
 }
 
 .ops-hub-scroll::-webkit-scrollbar-thumb:hover {
   background: #9d8df1;
-  box-shadow: 0 0 15px rgba(157, 141, 241, 1);
+  box-shadow: 0 0 20px rgba(157, 141, 241, 0.9);
 }
 
 /* --- COMPONENTES BASE --- */
@@ -99,7 +112,6 @@
   will-change: transform;
 }
 
-/* Animación para el modal de advertencia */
 @keyframes fade-in {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
