@@ -147,7 +147,12 @@ export default function BentoGrid() {
             <p className="text-black text-xs">Unrecoverable error at 0x0045F. Information leak in progress...</p>
           </div>
           <div className="flex justify-center p-2">
-            <button onClick={() => window.location.reload()} className="bg-[#c0c0c0] text-black px-6 py-1 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-black text-xs">OK</button>
+            <button onClick={(e) => {e.stopPropagation();
+                  const modal = e.currentTarget.closest('.fixed');
+                  if(modal) modal.style.display = 'none';
+                  console.log("User accepted fate. Executing Kernel Panic...");}} 
+              className="bg-[#c0c0c0] text-black px-6 py-1 border-t-2 border-l-2 border-white border-b-2 border-r-2 border-black active:border-none text-xs">
+              OK</button>
           </div>
         </div>
       )}
