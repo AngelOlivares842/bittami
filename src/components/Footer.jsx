@@ -49,7 +49,7 @@ export default function Footer() {
           target="_blank"
           className={`text-sm tracking-tighter italic ${isEzquizo ? 'animate-pulse text-red-600' : 'text-bitta-pink hover:text-white transition-colors'}`}
         >
-          {isEzquizo ? "ERR_0L1V4R3S" : "BITTAMI"}
+          {isEzquizo ? "ERR_0L1V4R3S" : "Angel Olivares"}
         </a>
         <div className="flex gap-2 items-center opacity-30">
             <div className={`w-1.5 h-1.5 rounded-full ${isHacked ? 'bg-red-600' : 'bg-green-500'} animate-pulse`} />
