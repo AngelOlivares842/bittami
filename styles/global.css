@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bitta-pink: #ffb7d5;
+  --color-bitta-purple: #9d8df1;
+  --color-ezquizo-dark: #0f0d15;
+}
+
+@layer base {
+  body {
+    @apply bg-ezquizo-dark text-slate-100 antialiased overflow-x-hidden;
+    background-image: 
+      radial-gradient(circle at 80% 20%, rgba(255, 183, 213, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 10% 80%, rgba(157, 141, 241, 0.08) 0%, transparent 40%);
+  }
+}
+
+.glass-card {
+  @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2.5rem] 
+         transition-all duration-500 hover:border-bitta-pink/40 hover:bg-white/[0.06] shadow-2xl;
+}
+
+/* Animación de flotado para las orejitas o iconos */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
