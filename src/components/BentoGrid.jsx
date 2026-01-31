@@ -1,80 +1,110 @@
 import React from 'react';
-import { Twitch, Mail, ExternalLink, Heart } from 'lucide-react';
+import { Twitch, Instagram, Twitter, Zap, Cpu, Mail, ExternalLink } from 'lucide-react';
 
-const Panel = ({ children, className, bgImage, title }) => (
-  <div className={`panel-card group ${className}`}>
-    {bgImage && <img src={bgImage} className="panel-image" alt={title} />}
-    <div className="relative z-10 p-8 h-full flex flex-col justify-between bg-gradient-to-t from-black/80 via-black/20 to-transparent">
-      {children}
-    </div>
+const Card = ({ children, className, title, onClick }) => (
+  <div 
+    onClick={onClick}
+    className={`glass-card p-8 group relative overflow-hidden transition-all duration-500 ${onClick ? 'cursor-pointer hover:scale-[1.02]' : ''} ${className}`}
+  >
+    {title && <h3 className="text-[10px] uppercase tracking-[0.4em] text-white/30 font-bold mb-6">{title}</h3>}
+    <div className="relative z-10">{children}</div>
   </div>
 );
 
 export default function BentoGrid() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto p-6">
-      
-      {/* 1. Header Principal - Usando su estética VTuber */}
-      <Panel className="md:col-span-8 md:row-span-2 min-h-[400px]" bgImage="/sobre-mi.png">
-        <div className="flex justify-between items-start">
-            <span className="bg-bitta-pink/20 text-bitta-pink text-[10px] font-bold px-3 py-1 rounded-full border border-bitta-pink/30 uppercase tracking-widest italic">
-                🐰 EZquizo Mode: ON
-            </span>
-            <Heart size={20} className="text-bitta-pink animate-pulse" />
-        </div>
-        <div>
-            <h1 className="text-7xl font-black tracking-tighter italic drop-shadow-lg">BITTAMI</h1>
-            <p className="text-lg text-slate-200 mt-2 max-w-md font-medium leading-tight drop-shadow-md">
-                "Espacio chill, algo random y lleno de pura EZquizo."
-            </p>
-        </div>
-      </Panel>
+  // Lógica de navegación para los botones
+  const navigateTo = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
-      {/* 2. Horario - Viernes, Sábado y Domingo */}
-      <Panel className="md:col-span-4" title="Horario">
-        <h3 className="text-bitta-purple font-black uppercase text-xs tracking-widest mb-4">Agenda Semanal</h3>
-        <div className="space-y-3">
-            {['Viernes', 'Sábado', 'Domingo'].map(dia => (
-                <div key={dia} className="flex justify-between border-b border-white/10 pb-1">
-                    <span className="font-bold italic text-lg">{dia}</span>
-                    <span className="font-mono text-bitta-pink tracking-widest">~ 20:00H</span>
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto p-6 relative">
+      
+      {/* Bio Principal */}
+      <Card className="md:col-span-8 md:row-span-2 flex flex-col justify-end min-h-[450px]">
+        <div className="absolute -top-10 -right-10 w-64 md:w-80 animate-float-bunny pointer-events-none z-20">
+            <img src="/bitta-avatar.png" alt="Bitta VTuber" className="w-full drop-shadow-[0_0_30px_rgba(255,183,213,0.3)]" />
+        </div>
+        <h1 className="text-8xl md:text-9xl font-black tracking-tighter leading-none italic">
+            BIT<span className="text-bitta-pink italic">TAMI</span>
+        </h1>
+        <p className="text-xl md:text-2xl mt-6 text-slate-400 font-light max-w-md leading-relaxed">
+            "¡BienvenidXs a mi <span className="text-white font-bold underline decoration-bitta-pink italic">EZquizo</span>! Espacio chill y lleno de magia."
+        </p>
+      </Card>
+
+      {/* Agenda Real */}
+      <Card className="md:col-span-4" title="Stream Schedule">
+        <div className="space-y-4">
+            {[
+              { dia: 'Viernes', hora: '20:00H' },
+              { dia: 'Sábado', hora: '20:00H' },
+              { dia: 'Domingo', hora: '20:00H' }
+            ].map((item) => (
+                <div key={item.dia} className="flex justify-between items-center border-b border-white/5 pb-2">
+                    <span className="font-bold text-lg">{item.dia}</span>
+                    <span className="text-bitta-pink font-mono text-sm tracking-widest">{item.hora}</span>
                 </div>
             ))}
         </div>
-      </Panel>
+      </Card>
 
-      {/* 3. Setup (Basado en su imagen) */}
-      <Panel className="md:col-span-4" bgImage="/setup.png">
-        <div className="mt-auto">
-            <h4 className="text-xs font-bold text-white/50 uppercase mb-2 tracking-tighter">Current Gear</h4>
-            <ul className="text-xs space-y-1 font-bold">
-                <li><span className="text-bitta-pink">GPU:</span> RTX 4060</li>
-                <li><span className="text-bitta-pink">CPU:</span> Ryzen 5 8400F</li>
-                <li><span className="text-bitta-pink">RAM:</span> 16GB</li>
-            </ul>
+      {/* Widget de Spotify Funcional */}
+      <div className="md:col-span-4 overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl">
+        <iframe 
+          style={{ borderRadius: '0px' }} 
+          src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM3M" // Playlist lofi por defecto
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      {/* Redes Sociales con Enlaces Reales */}
+      <Card 
+        className="md:col-span-2 flex flex-col items-center justify-center hover:bg-purple-600/10"
+        onClick={() => navigateTo('https://www.twitch.tv/bittami')}
+      >
+        <Twitch size={32} className="text-bitta-purple" />
+        <span className="text-[10px] font-black mt-4 tracking-widest uppercase">Twitch</span>
+      </Card>
+
+      <Card 
+        className="md:col-span-2 flex flex-col items-center justify-center hover:bg-pink-600/10"
+        onClick={() => navigateTo('https://www.instagram.com/bittami.vt')}
+      >
+        <Instagram size={32} className="text-bitta-pink" />
+        <span className="text-[10px] font-black mt-4 tracking-widest uppercase">Instagram</span>
+      </Card>
+
+      {/* Specs Técnicos */}
+      <Card className="md:col-span-4" title="Rig Info">
+        <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-3">
+                <Cpu size={18} className="text-bitta-purple" />
+                <p className="text-sm font-bold">Ryzen 5 8400F</p>
+            </div>
+            <div className="flex items-center gap-3">
+                <Zap size={18} className="text-bitta-pink" />
+                <p className="text-sm font-bold">RTX 4060</p>
+            </div>
         </div>
-      </Panel>
+      </Card>
 
-      {/* 4. Redes Sociales Rápidas */}
-      <Panel className="md:col-span-2 flex flex-col items-center justify-center bg-purple-600/20 hover:bg-purple-600/40 cursor-pointer">
-        <Twitch size={40} />
-        <span className="text-[10px] font-black mt-4 tracking-[0.2em]">TWITCH</span>
-      </Panel>
-
-      <Panel className="md:col-span-2 flex flex-col items-center justify-center bg-pink-600/20 hover:bg-pink-600/40 cursor-pointer">
-        <span className="text-3xl">📸</span>
-        <span className="text-[10px] font-black mt-4 tracking-[0.2em]">INSTA</span>
-      </Panel>
-
-      {/* 5. Contacto / Business */}
-      <Panel className="md:col-span-4 flex flex-row items-center justify-between group cursor-pointer" title="Contacto">
+      {/* Botón de Contacto */}
+      <Card 
+        className="md:col-span-8 flex items-center justify-between group" 
+        onClick={() => window.location.href = 'mailto:bittami.mp@gmail.com'}
+        title="Business"
+      >
         <div className="flex items-center gap-4">
-            <Mail className="text-bitta-purple" />
-            <span className="text-sm font-bold tracking-tighter">bittami.mp@gmail.com</span>
+            <Mail className="text-zinc-500 group-hover:text-bitta-pink transition-colors" />
+            <span className="text-lg font-bold tracking-tighter">bittami.mp@gmail.com</span>
         </div>
-        <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-      </Panel>
-
+        <ExternalLink size={18} className="opacity-20 group-hover:opacity-100 transition-opacity" />
+      </Card>
     </div>
   );
 }

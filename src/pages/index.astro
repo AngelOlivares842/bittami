@@ -1,27 +1,21 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import BentoGrid from '../components/BentoGrid';
+import StreamStatus from '../components/StreamStatus';
 import '../../styles/global.css';
 ---
 
-<MainLayout title="Bitta 🐰 | Welcome to the EZquizo">
-	<main class="py-16">
-        <header class="flex justify-center mb-12">
-            <div class="px-6 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
-                <p class="text-[10px] font-bold tracking-[0.5em] text-white/40 uppercase">
-                    Bittami OS v1.0.4 <span class="text-bitta-pink ml-2">● Online</span>
-                </p>
+<MainLayout title="Bitta 🐰 // Online">
+	<main class="min-h-screen py-16 px-4">
+		<header class="max-w-7xl mx-auto mb-16 px-6 flex justify-between items-center">
+            <StreamStatus client:load />
+            <div class="hidden md:block text-[10px] font-black tracking-[0.5em] text-white/20 uppercase">
+                Kal_warding // 2026
             </div>
 		</header>
 		
 		<section>
 			<BentoGrid client:load />
 		</section>
-
-        <footer class="mt-20 text-center opacity-20">
-            <p class="text-[10px] uppercase font-black tracking-widest">
-                Developed by Angel Olivares // Student of Software Engineering
-            </p>
-        </footer>
 	</main>
 </MainLayout>
