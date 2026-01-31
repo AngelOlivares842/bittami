@@ -172,3 +172,14 @@
 .ezquizo-active * {
   text-shadow: 4px 0px 0px rgba(255,0,0,0.8), -4px 0px 0px rgba(0,0,255,0.8);
 }
+
+footer {
+  /* Fondo muy sutil para separar del grid */
+  background: linear-gradient(to top, rgba(15, 13, 21, 0.5), transparent);
+}
+
+/* Efecto de glitch suave para el nombre del autor en el footer */
+.ezquizo-active footer span {
+  text-shadow: 2px 0 red, -2px 0 blue;
+  letter-spacing: 8px;
+}
