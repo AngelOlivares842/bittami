@@ -46,10 +46,40 @@ export default function Terminal() {
         const s = ["CONNECTING...", "BYPASSING BIO...", "EXTRACTING DATA...", "KERNEL_OVERRIDE"];
         s.forEach((m, i) => setTimeout(() => setFeedback(m), i * 1500));
         break;
+
       case 'ymir':
-        document.body.classList.toggle('mimir-mode');
-        showStatus(document.body.classList.contains('mimir-mode') ? "YMIR ACTIVE" : "DAY MODE");
+        const isMimir = document.body.classList.toggle('mimir-mode');
+        
+        if (isMimir) {
+          const audio = new Audio('/sounds/ymir_purr.mp3');
+          audio.volume = 0.1;
+          audio.loop = true; 
+          audio.id = 'ymir-audio';
+          audio.play().catch(e => console.log("Interacción requerida para audio"));
+          document.body.appendChild(audio);
+
+          for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+              const cat = document.createElement('div');
+              cat.innerText = '🐈‍⬛';
+              cat.className = 'ymir-rain';
+              cat.style.left = Math.random() * 100 + 'vw';
+              cat.style.fontSize = (Math.random() * 20 + 20) + 'px';
+              document.body.appendChild(cat);
+              setTimeout(() => cat.remove(), 4000);
+            }, i * 200);
+          }
+          showStatus("YMIR ESTÁ RELAJADO 🐈‍⬛✨");
+        } else {
+          const audio = document.getElementById('ymir-audio');
+          if (audio) {
+            audio.pause();
+            audio.remove();
+          }
+          showStatus("MODO DIURNO");
+        }
         break;
+
       case 'bunny':
         for (let i = 0; i < 20; i++) {
           setTimeout(() => {
@@ -60,15 +90,28 @@ export default function Terminal() {
         }
         showStatus("INVASIÓN 🐰");
         break;
+
       case 'hug':
         setHugHearts(Array.from({length:15}).map((_,i)=>({id:Date.now()+i, left:40+Math.random()*20, top:40+Math.random()*20, delay:Math.random()*0.5})));
         setTimeout(() => setHugHearts([]), 2000);
         showStatus("AMOR 💖");
         break;
+
       case 'clear':
+        // Limpieza de clases visuales
         document.body.classList.remove('ezquizo-active', 'mimir-mode', 'hacked-mode');
+        
+        // --- ADAPTACIÓN: Limpieza de Audio ---
+        const activeAudio = document.getElementById('ymir-audio');
+        if (activeAudio) {
+          activeAudio.pause();
+          activeAudio.currentTime = 0;
+          activeAudio.remove();
+        }
+        
         showStatus("REINICIADO");
         break;
+
       case 'help': showStatus("YMIR, EZQUIZO, HACKED, BUNNY, HUG, CLEAR"); break;
       default: if (cmd !== "") showStatus("ERROR: HELP");
     }

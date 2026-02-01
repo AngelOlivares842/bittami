@@ -12,11 +12,61 @@
   }
 }
 
-/* --- MODO YMIR: Estética de Noche --- */
+/* --- MODO YMIR: Estética de Noche (Ronroneo y Estrellas) --- */
 .mimir-mode {
-  filter: brightness(0.4) contrast(1.1) saturate(0.8);
+  filter: brightness(0.6) contrast(1.1) saturate(0.8);
   background-color: #020205 !important;
   transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Cursor de patita de gato: usando un emoji convertido en cursor */
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size:24px'><text y='20'>🐾</text></svg>"), auto !important;
+}
+
+/* Efecto de Estrellas Twinkle */
+.mimir-mode::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 150px 150px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 300px 100px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 500px 400px, #fff, rgba(0,0,0,0));
+  background-size: 400px 400px;
+  animation: stars-twinkle 4s ease-in-out infinite;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Vibración sutil de "Ronroneo" en las tarjetas */
+.mimir-mode .glass-card {
+  animation: purr-vibration 3s infinite ease-in-out;
+  box-shadow: 0 0 30px rgba(157, 141, 241, 0.1);
+}
+
+@keyframes purr-vibration {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.005); }
+}
+
+@keyframes stars-twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
+}
+
+/* Lluvia de Ymir (Gatitos Negros) */
+.ymir-rain {
+  position: fixed;
+  top: -10%;
+  z-index: 1000;
+  pointer-events: none;
+  animation: ymir-fall 4s linear forwards;
+}
+
+@keyframes ymir-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
 /* --- EFECTO HACKED: Intrusión Silenciosa --- */
@@ -25,13 +75,11 @@
   transition: background-color 0.1s ease-in;
 }
 
-/* Filtro de "Sistema Dañado" - Elimina el color y sube el contraste */
 .hacked-mode #root {
   filter: grayscale(1) contrast(1.5) brightness(0.8);
-  pointer-events: none; /* Bloquea la página para que sientan que perdieron el control */
+  pointer-events: none;
 }
 
-/* Animación de "Glitch de Hardware" (Sutil pero inquietante) */
 .hacked-mode .glass-card {
   animation: hardware-failure 4s infinite;
   border-color: rgba(255, 255, 255, 0.2) !important;
@@ -44,9 +92,8 @@
   96% { transform: scaleY(0.01); }
 }
 
-/* Avatar en modo "Vigilante" */
 .avatar-hacked {
-  filter: brightness(0) invert(1) !important; /* Silueta blanca pura, muy inquietante */
+  filter: brightness(0) invert(1) !important;
   opacity: 0.8;
 }
 
@@ -56,28 +103,15 @@
   scrollbar-color: var(--color-bitta-pink) rgba(255, 255, 255, 0.02);
 }
 
-.ops-hub-scroll::-webkit-scrollbar {
-  width: 6px;
-  display: block !important;
-}
-
-.ops-hub-scroll::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-}
-
+.ops-hub-scroll::-webkit-scrollbar { width: 6px; display: block !important; }
+.ops-hub-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 20px; }
 .ops-hub-scroll::-webkit-scrollbar-thumb {
   background: var(--color-bitta-pink);
   border-radius: 20px;
   box-shadow: 0 0 12px rgba(255, 183, 213, 0.6);
 }
 
-.ops-hub-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--color-bitta-purple);
-  box-shadow: 0 0 20px rgba(157, 141, 241, 0.9);
-}
-
-/* --- OTROS EFECTOS --- */
+/* --- GLASS CARDS & EFFECTS --- */
 .glass-card {
   @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2.5rem] 
          transition-all duration-500 hover:border-bitta-pink/30;
@@ -102,10 +136,9 @@
   20% { opacity: 1; }
   100% { transform: scale(1.2) translateY(-150px); opacity: 0; }
 }
-
 .animate-heart-burst { animation: heart-burst 1.5s ease-out forwards; }
 
-/* --- KERNEL PANIC: Pantalla Final Estilo Linux --- */
+/* --- KERNEL PANIC: Pantalla Final --- */
 .kernel-panic-screen {
   position: fixed;
   inset: 0;
@@ -119,12 +152,6 @@
   overflow: hidden;
   cursor: default;
 }
-
-@keyframes scanline-panic {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
 .kernel-panic-screen::after {
   content: "";
   position: absolute;
@@ -168,17 +195,14 @@
   100% { transform: translateX(20px) skewX(-20deg); }
 }
 
-/* Efecto de texto "fantasma" */
 .ezquizo-active * {
   text-shadow: 4px 0px 0px rgba(255,0,0,0.8), -4px 0px 0px rgba(0,0,255,0.8);
 }
 
 footer {
-  /* Fondo muy sutil para separar del grid */
   background: linear-gradient(to top, rgba(15, 13, 21, 0.5), transparent);
 }
 
-/* Efecto de glitch suave para el nombre del autor en el footer */
 .ezquizo-active footer span {
   text-shadow: 2px 0 red, -2px 0 blue;
   letter-spacing: 8px;
