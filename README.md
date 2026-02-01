@@ -1,46 +1,41 @@
-# Astro Starter Kit: Basics
+# 🐰 BittamiHub: Core Interface v1.0.0
 
-```sh
-npm create astro@latest -- --template basics
-```
+![Vercel Deployment](https://img.shields.io/badge/deploy-vercel-black?style=for-the-badge&logo=vercel)
+![License](https://img.shields.io/badge/license-CC--BY--NC--ND--4.0-pink?style=for-the-badge)
+![Astro](https://img.shields.io/badge/Astro-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**BittamiHub** es una interfaz web interactiva diseñada bajo un concepto de "Bento Grid" industrial y místico. El proyecto no es solo un portafolio visual, sino una experiencia de usuario controlada por una terminal de comandos que permite manipular el entorno en tiempo real.
 
-## 🚀 Project Structure
+## 🛠️ Tecnologías Utilizadas
 
-Inside of your Astro project, you'll see the following folders and files:
+* **Astro:** Framework principal para un rendimiento óptimo y renderizado estático.
+* **React:** Manejo de estados complejos y lógica de la terminal.
+* **Tailwind CSS:** Diseño industrial responsivo y animaciones de alta intensidad (@theme v4).
+* **Lucide Icons:** Set de iconos minimalistas para la interfaz.
+* **Framer Motion:** (Opcional si usaste para transiciones) Animaciones suaves de entrada.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## ⌨️ Sistema de Terminal (Protocolos)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+La interfaz cuenta con una consola integrada que acepta los siguientes comandos:
 
-## 🧞 Commands
+* `help`: Despliega la lista de protocolos disponibles.
+* `ymir`: Activa la estética "Noche" con narrativa mística en la Bio.
+* `ezquizo`: **[WARNING]** Activa el modo de alta intensidad con distorsión visual y corrupción de datos al 100%.
+* `hacked`: Inicia una secuencia de intrusión simulada que culmina en un **Kernel Panic** de sistema.
+* `bunny` / `hug`: Protocolos estéticos de interacción visual.
 
-All commands are run from the root of the project, from a terminal:
+## 📂 Estructura del Proyecto
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+* `/src/components/BentoGrid.jsx`: Núcleo visual que mantiene la integridad de los datos (Relojes, Redes, Bio).
+* `/src/components/Terminal.jsx`: Motor de comandos y gestión de estados globales.
+* `/src/components/Footer.jsx`: Registro de autoría y licencias legales.
 
-## 👀 Want to learn more?
+## 🛡️ Seguridad y Licencia
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Este proyecto cuenta con una **Política de Divulgación Responsable** detallada en el archivo `SECURITY.md`. 
+
+**Licencia:** [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 
+> © 2026 Angel Olivares. Todo el trabajo es 100% auténtico y original.
+
+---
+Desarrollado con fines creativos y educativos para el ecosistema Bittami.
