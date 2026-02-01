@@ -1,0 +1,156 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Footer from '../components/Footer.jsx';
+import '../../styles/global.css';
+---
+
+<MainLayout title="404 // SYSTEM_FAILURE">
+    <main class="min-h-screen flex flex-col justify-between overflow-hidden bg-[#0a0a0c]">
+        <div class="noise-overlay"></div>
+
+        <div class="flex-grow flex flex-col items-center justify-center p-6 text-center relative z-10">
+            
+            <div class="relative mb-4 group">
+                <h1 class="text-[12rem] md:text-[20rem] font-black leading-none tracking-tighter text-white opacity-5 glitch-text" data-text="404">
+                    404
+                </h1>
+                <div class="absolute inset-0 flex items-center justify-center animate-violent-shake">
+                    <img 
+                        src="/bitta-avatar.png" 
+                        alt="Bitta Glitch" 
+                        class="w-48 md:w-64 object-contain grayscale invert opacity-70 contrast-200 scanline-effect"
+                    />
+                </div>
+            </div>
+
+            <div class="space-y-6 max-w-md backdrop-blur-sm p-8 border border-white/5 rounded-3xl bg-black/20">
+                <h2 class="text-xl font-black uppercase tracking-[0.5em] text-red-600 flicker-slow">
+                    SECTOR_CORRUPTO
+                </h2>
+                
+                <div class="font-mono text-[10px] space-y-2 text-slate-500 uppercase">
+                    <p class="opacity-50">> LOCALIZANDO_NÚCLEO...</p>
+                    <p class="text-red-900/50 animate-pulse">> ADVERTENCIA: REALIDAD_INESTABLE</p>
+                </div>
+
+                <div class="pt-6">
+                    <p class="text-[9px] font-bold text-slate-400 mb-2 uppercase tracking-widest">
+                        Reinicio forzado en:
+                    </p>
+                    <div id="countdown" class="text-4xl font-black text-white italic tabular-nums">
+                        10
+                    </div>
+                </div>
+                
+                <div class="pt-6">
+                    <a 
+                        href="/" 
+                        class="inline-block bg-red-600/10 border border-red-600/20 text-red-500 px-8 py-3 rounded-full text-[9px] font-black uppercase tracking-[0.3em] hover:bg-red-600 hover:text-white transition-all duration-300"
+                    >
+                        Abortar y Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <Footer client:load />
+    </main>
+</MainLayout>
+
+<script is:inline>
+  // Lógica del Temporizador Regresivo
+  let seconds = 10;
+  const display = document.getElementById('countdown');
+
+  const timer = setInterval(() => {
+    seconds--;
+    if (display) {
+        // Efecto visual: a veces el número parpadea o cambia a caracteres raros
+        display.innerText = seconds < 10 ? `0${seconds}` : seconds;
+        
+        if (seconds <= 3) {
+            display.classList.add('text-red-600', 'animate-ping');
+        }
+    }
+
+    if (seconds <= 0) {
+      clearInterval(timer);
+      window.location.href = "/";
+    }
+  }, 1000);
+
+  // Detalle extra: Audio de estática muy suave o visual
+  console.log("%c [!] SYSTEM ERROR: PAGE_NOT_FOUND ", "color: red; font-weight: bold; background: black;");
+</script>
+
+<style>
+    /* Capa de estática/ruido */
+    .noise-overlay {
+        position: fixed;
+        inset: 0;
+        background: url('https://media.giphy.com/media/oEI9uWUqnW3FePyOMz/giphy.gif'); /* Ruido digital suave */
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    /* Efecto de parpadeo para el texto */
+    .flicker-slow {
+        animation: flicker 3s infinite;
+    }
+
+    @keyframes flicker {
+        0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+        20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; text-shadow: none; }
+    }
+
+    /* Efecto Scanline (Rayas de monitor viejo) */
+    .scanline-effect {
+        background: linear-gradient(
+            to bottom,
+            rgba(18, 16, 16, 0) 50%,
+            rgba(0, 0, 0, 0.25) 50%
+        );
+        background-size: 100% 4px;
+    }
+
+    /* Sacudida violenta para la imagen */
+    .animate-violent-shake {
+        animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) infinite;
+        transform: translate3d(0, 0, 0);
+    }
+
+    @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+    }
+
+    .glitch-text::before {
+        left: 2px;
+        text-shadow: -2px 0 #ff00c1;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+
+    .glitch-text::after {
+        left: -2px;
+        text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+        animation: glitch-anim2 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+        0% { clip: rect(31px, 9999px, 94px, 0); }
+        20% { clip: rect(62px, 9999px, 42px, 0); }
+        /* ... añadir más pasos si quieres más glitch ... */
+        100% { clip: rect(89px, 9999px, 98px, 0); }
+    }
+</style>
