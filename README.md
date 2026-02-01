@@ -12,7 +12,6 @@
 * **React:** Manejo de estados complejos y lógica de la terminal.
 * **Tailwind CSS:** Diseño industrial responsivo y animaciones de alta intensidad (@theme v4).
 * **Lucide Icons:** Set de iconos minimalistas para la interfaz.
-* **Framer Motion:** (Opcional si usaste para transiciones) Animaciones suaves de entrada.
 
 ## ⌨️ Sistema de Terminal (Protocolos)
 
