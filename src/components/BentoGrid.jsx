@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Twitch, Instagram, Mail, ShieldCheck, Calendar } from 'lucide-react';
 import { useGlitchText } from '../hooks/useGlitchText';
 
+/**
+ * @project BITTAMI_HUB_CORE_V1
+ * @uid 0x5a2f_99_AO_2026 // Firma única basada en tus iniciales y año
+ * @license CC BY-NC-ND 4.0
+ * @author Angel Olivares
+ * @warning Any unauthorized distribution or modification is a breach of copyright.
+ */
+
 const Card = ({ children, className, title, onClick, isHacked, isEzquizo }) => {
   const corrupt = (text) => {
     if (!isEzquizo) return text;
