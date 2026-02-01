@@ -15,21 +15,13 @@ export default function Footer() {
 
   return (
     <footer className={`w-full py-10 px-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest transition-all duration-500 ${isHacked ? 'bg-red-950/20' : 'bg-transparent'}`}>
-      
-      {/* Lado Izquierdo: Creative Commons Info */}
       <div className="flex flex-col gap-2 items-center md:items-start opacity-40 hover:opacity-100 transition-opacity">
         <div className="flex items-center gap-1">
           <a href="https://bittami.kalwrd.me/" className="hover:text-bitta-pink transition-colors">BittamiHub</a>
           <span>© 2026</span>
         </div>
-        
         <div className="flex items-center gap-2">
-          <a 
-            href="https://creativecommons.org/licenses/by-nc-nd/4.0/" 
-            target="_blank" 
-            rel="license noopener noreferrer"
-            className="hover:underline"
-          >
+          <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="license noopener noreferrer" className="hover:underline">
             {isEzquizo ? "C0RRUPT_L1CENS3" : "CC BY-NC-ND 4.0"}
           </a>
           <div className="flex gap-1 items-center bg-white/10 p-1 rounded">
@@ -41,21 +33,14 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Lado Derecho: Créditos de Autor */}
       <div className="text-center md:text-right flex flex-col items-center md:items-end gap-1">
-        <p className="opacity-40">Property of:</p>
-        <a 
-          href="https://github.com/AngelOlivares842" 
-          target="_blank"
-          className={`text-sm tracking-tighter italic ${isEzquizo ? 'animate-pulse text-red-600' : 'text-bitta-pink hover:text-white transition-colors'}`}
-        >
-          {isEzquizo ? "ERR_0L1V4R3S" : "Bittami by Angel Olivares"}
+        <p className="opacity-40 tracking-widest">100% AUTHENTIC WORK BY:</p>
+        <a href="https://github.com/AngelOlivares842" target="_blank" className={`text-sm tracking-tighter italic ${isEzquizo ? 'animate-pulse text-red-600' : 'text-bitta-pink hover:text-white transition-colors font-bold'}`}>
+          {isEzquizo ? "ERR_0L1V4R3S" : "ANGEL OLIVARES"}
         </a>
         <div className="flex gap-2 items-center opacity-30">
             <div className={`w-1.5 h-1.5 rounded-full ${isHacked ? 'bg-red-600' : 'bg-green-500'} animate-pulse`} />
-            <span className="text-[7px] font-mono lowercase">
-                {isHacked ? "core_breached" : "auth_verified"}
-            </span>
+            <span className="text-[7px] font-mono lowercase">{isHacked ? "core_breached" : "auth_verified"}</span>
         </div>
       </div>
     </footer>

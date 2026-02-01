@@ -7,8 +7,31 @@ import '../../styles/global.css';
 ---
 
 <MainLayout title="Bitta 🐰 // Online">
+    <head>
+        <script is:inline>
+          (function() {
+            // 1. Whitelist de dominios autorizados
+            const allowed = ['bittami.kalwrd.me', 'localhost', '127.0.0.1'];
+            const isAuth = allowed.some(d => window.location.hostname.includes(d));
+
+            if (!isAuth) {
+              window.addEventListener('load', () => {
+                document.body.classList.add('hacked-mode');
+                setTimeout(() => {
+                  alert("ACCESO NO AUTORIZADO: Este sitio es una copia. Redirigiendo al original de Angel Olivares.");
+                  window.location.href = "https://bittami.kalwrd.me/";
+                }, 3000);
+              });
+            }
+
+            // 2. Marca de agua en consola y memoria
+            console.log("%c © 2026 ANGEL OLIVARES | AUTHENTIC WORK ", "background:#ffb7d5;color:#0f0d15;padding:10px;font-weight:bold;border-radius:5px;");
+            Object.defineProperty(window, 'PROJECT_OWNER', { value: 'Angel Olivares - INACAP 2026', writable: false });
+          })();
+        </script>
+    </head>
+
     <main class="min-h-screen flex flex-col justify-between">
-        
         <div class="flex-grow py-16 px-4">
             <header class="max-w-7xl mx-auto mb-16 px-6 flex justify-between items-center">
                 <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
@@ -18,7 +41,6 @@ import '../../styles/global.css';
                     </span>
                     <span class="text-[10px] font-black tracking-[0.2em] uppercase opacity-70">Status: Más ezquizo que ayer</span>
                 </div>
-                
                 <div class="hidden md:block text-[8px] font-black tracking-[0.4em] text-white/20 uppercase">
                     Terminal: Escribe 'help' para comandos
                 </div>
