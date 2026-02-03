@@ -135,7 +135,9 @@ export default function Terminal() {
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
           <div className="bg-[#0f0d15] border-2 border-red-600 p-8 rounded-[3rem] text-center max-w-md">
             <h2 className="text-red-600 font-black text-2xl mb-4 italic">⚠️ ADVERTENCIA</h2>
-            <p className="text-slate-400 text-sm mb-8">El modo EZQUIZO contiene parpadeos intensos.</p>
+            <p className="text-slate-400 text-sm mb-8">
+              El modo EZQUIZO contiene parpadeos intensos, movimientos violentos de cámara y efectos visuales que pueden afectar a personas sensibles. ¿Deseas continuar bajo tu propio riesgo?
+            </p>
             <div className="flex gap-4">
               <button onClick={() => {document.body.classList.add('ezquizo-active'); setShowModal(false); showStatus("ACTIVO");}} className="flex-1 bg-red-600 text-white py-4 rounded-2xl">Activar</button>
               <button onClick={() => setShowModal(false)} className="flex-1 bg-white/5 text-white py-4 rounded-2xl">Cancelar</button>
