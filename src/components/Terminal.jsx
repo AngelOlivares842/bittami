@@ -49,7 +49,6 @@ export default function Terminal() {
 
       case 'ymir':
         const isMimir = document.body.classList.toggle('mimir-mode');
-        
         if (isMimir) {
           const audio = new Audio('/sounds/ymir_purr.mp3');
           audio.volume = 0.1;
@@ -72,23 +71,30 @@ export default function Terminal() {
           showStatus("YMIR ESTÁ RELAJADO 🐈‍⬛✨");
         } else {
           const audio = document.getElementById('ymir-audio');
-          if (audio) {
-            audio.pause();
-            audio.remove();
-          }
+          if (audio) { audio.pause(); audio.remove(); }
           showStatus("MODO DIURNO");
         }
         break;
 
       case 'bunny':
-        for (let i = 0; i < 20; i++) {
+        // Ejecutar únicamente la lluvia de partículas (40 partículas)
+        for (let i = 0; i < 40; i++) {
           setTimeout(() => {
-            const b = document.createElement('div'); b.innerText = '🐰'; b.className = 'bunny-rain';
-            b.style.left = Math.random() * 100 + 'vw'; document.body.appendChild(b);
-            setTimeout(() => b.remove(), 4000);
-          }, i * 150);
+            const p = document.createElement('div');
+            // Variedad de emojis temáticos
+            p.innerText = ['🐰', '🐇', '✨', '🐾'][Math.floor(Math.random() * 4)];
+            p.className = 'bunny-particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            p.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(p);
+            
+            // Limpieza de cada partícula después de su animación
+            setTimeout(() => p.remove(), 4000);
+          }, i * 100);
         }
-        showStatus("INVASIÓN 🐰");
+
+        showStatus("BUNNY PROTOCOL ACTIVATED 🐰");
         break;
 
       case 'hug':
@@ -98,17 +104,13 @@ export default function Terminal() {
         break;
 
       case 'clear':
-        // Limpieza de clases visuales
         document.body.classList.remove('ezquizo-active', 'mimir-mode', 'hacked-mode');
-        
-        // --- ADAPTACIÓN: Limpieza de Audio ---
         const activeAudio = document.getElementById('ymir-audio');
         if (activeAudio) {
           activeAudio.pause();
           activeAudio.currentTime = 0;
           activeAudio.remove();
         }
-        
         showStatus("REINICIADO");
         break;
 

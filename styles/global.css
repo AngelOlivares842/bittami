@@ -12,16 +12,31 @@
   }
 }
 
+.bunny-particle {
+  position: fixed;
+  top: -10vh;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  animation: bunny-float-down linear forwards;
+  filter: drop-shadow(0 0 8px rgba(255, 183, 213, 0.4));
+}
+
+@keyframes bunny-float-down {
+  0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg) translateX(50px); opacity: 0; }
+}
+
 /* --- MODO YMIR: Estética de Noche (Ronroneo y Estrellas) --- */
 .mimir-mode {
   filter: brightness(0.6) contrast(1.1) saturate(0.8);
   background-color: #020205 !important;
   transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Cursor de patita de gato: usando un emoji convertido en cursor */
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size:24px'><text y='20'>🐾</text></svg>"), auto !important;
 }
 
-/* Efecto de Estrellas Twinkle */
 .mimir-mode::before {
   content: "";
   position: fixed;
@@ -38,7 +53,6 @@
   pointer-events: none;
 }
 
-/* Vibración sutil de "Ronroneo" en las tarjetas */
 .mimir-mode .glass-card {
   animation: purr-vibration 3s infinite ease-in-out;
   box-shadow: 0 0 30px rgba(157, 141, 241, 0.1);
@@ -54,7 +68,6 @@
   50% { opacity: 0.6; }
 }
 
-/* Lluvia de Ymir (Gatitos Negros) */
 .ymir-rain {
   position: fixed;
   top: -10%;
@@ -114,7 +127,7 @@
 /* --- GLASS CARDS & EFFECTS --- */
 .glass-card {
   @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2.5rem] 
-         transition-all duration-500 hover:border-bitta-pink/30;
+          transition-all duration-500 hover:border-bitta-pink/30;
 }
 
 .bunny-rain {

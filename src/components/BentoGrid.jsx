@@ -74,7 +74,7 @@ export default function BentoGrid() {
                 </p>
             </div>
             <div className="relative w-48 md:w-64 aspect-square">
-                <img src="/bitta-avatar.png" className={`w-full h-full object-contain transition-all duration-75 ${isHacked ? 'avatar-hacked scale-110' : (isEzquizo ? 'ezquizo-avatar-effect' : '')}`} />
+                <img src="/images/bitta-avatar.png" className={`w-full h-full object-contain transition-all duration-75 ${isHacked ? 'avatar-hacked scale-110' : (isEzquizo ? 'ezquizo-avatar-effect' : '')}`} />
             </div>
         </div>
       </Card>
