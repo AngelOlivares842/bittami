@@ -77,25 +77,71 @@ export default function Terminal() {
         break;
 
       case 'bunny':
-        // Ejecutar únicamente la lluvia de partículas (40 partículas)
-        for (let i = 0; i < 40; i++) {
-          setTimeout(() => {
-            const p = document.createElement('div');
-            // Variedad de emojis temáticos
-            p.innerText = ['🐰', '🐇', '✨', '🐾'][Math.floor(Math.random() * 4)];
-            p.className = 'bunny-particle';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            p.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            document.body.appendChild(p);
-            
-            // Limpieza de cada partícula después de su animación
-            setTimeout(() => p.remove(), 4000);
-          }, i * 100);
-        }
+              // 1. Capa de oscurecimiento (Overlay)
+              const overlay = document.createElement('div');
+              Object.assign(overlay.style, {
+                position: 'fixed', inset: '0', backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                zIndex: '1999', transition: 'opacity 1s ease', opacity: '0', pointerEvents: 'none'
+              });
+              document.body.appendChild(overlay);
+              setTimeout(() => overlay.style.opacity = '1', 10);
 
-        showStatus("BUNNY PROTOCOL ACTIVATED 🐰");
-        break;
+              // 2. Video del conejo
+              const bunnyVid = document.createElement('video');
+              bunnyVid.src = '/videos/bunny_peek.mp4'; 
+              bunnyVid.autoplay = true; bunnyVid.muted = true; bunnyVid.playsInline = true;
+              bunnyVid.className = 'bunny-nose-peek'; 
+              // Transición suavizada con cubic-bezier para evitar saltos visuales
+              bunnyVid.style.transition = 'all 1.6s cubic-bezier(0.4, 0, 0.2, 1)';
+              bunnyVid.style.zIndex = '2001';
+              document.body.appendChild(bunnyVid);
+
+              // 3. Lluvia MASIVA de Estrellas y Emojis
+              const symbols = ['🐰', '🐇', '🐾', '⭐'];
+              for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                  const p = document.createElement('div');
+                  p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                  
+                  Object.assign(p.style, {
+                    position: 'fixed', top: '-10%', left: Math.random() * 100 + 'vw',
+                    fontSize: (Math.random() * 25 + 15) + 'px', zIndex: '2000',
+                    pointerEvents: 'none', opacity: '0', filter: 'drop-shadow(0 0 8px white)',
+                    transition: `transform ${Math.random() * 2 + 2}s linear, opacity 0.5s`
+                  });
+                  
+                  document.body.appendChild(p);
+
+                  requestAnimationFrame(() => {
+                    p.style.opacity = '1';
+                    p.style.transform = `translateY(115vh) rotate(${Math.random() * 720}deg)`;
+                  });
+
+                  setTimeout(() => p.remove(), 4000);
+                }, i * 80);
+              }
+
+              showStatus("BUNNY_MAX_OVERDRIVE 🐰✨");
+
+              // 4. Cierre con EFECTO DE DIFUMINACIÓN Y ESCALADO
+              bunnyVid.onended = () => {
+                // Subimos el brillo y el blur simultáneamente con un ligero zoom (scale)
+                // contrast(1.1) ayuda a que el destello se vea más "vivido" y no grisáceo
+                bunnyVid.style.filter = 'blur(50px) brightness(2.5) contrast(1.1)';
+                bunnyVid.style.transform = 'translateX(-50%) scale(1.1)';
+                bunnyVid.style.opacity = '0';
+                
+                // Sincronizamos la retirada del fondo oscuro
+                setTimeout(() => {
+                  overlay.style.opacity = '0';
+                }, 200);
+
+                setTimeout(() => {
+                  bunnyVid.remove();
+                  overlay.remove();
+                }, 1600);
+              };
+              break;
 
       case 'hug':
         setHugHearts(Array.from({length:15}).map((_,i)=>({id:Date.now()+i, left:40+Math.random()*20, top:40+Math.random()*20, delay:Math.random()*0.5})));

@@ -220,3 +220,33 @@ footer {
   text-shadow: 2px 0 red, -2px 0 blue;
   letter-spacing: 8px;
 }
+
+/* --- ESTILO FINAL DEL CONEJO --- */
+.bunny-nose-peek {
+  position: fixed !important;
+  /* Ajustamos para que salga desde el borde inferior de tus tarjetas */
+  bottom: -40px !important; 
+  /* Centrado horizontal o alineado a la tarjeta de Bitta */
+  left: 50% !important;
+  transform: translateX(-50%) !important; 
+  
+  width: 500px !important;
+  z-index: 2001 !important;
+  pointer-events: none;
+  
+  /* ELIMINAR FONDO NEGRO */
+  mix-blend-mode: screen !important; 
+  
+  /* Realce técnico */
+  filter: contrast(1.2) brightness(1.2) !important;
+  
+  /* Animación de asomarse */
+  animation: bunny-peek-entry 5s ease-in-out forwards;
+}
+
+@keyframes bunny-peek-entry {
+  0% { transform: translateX(-50%) translateY(100%); }
+  20% { transform: translateX(-50%) translateY(0); }
+  80% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(100%); }
+}
