@@ -250,3 +250,28 @@ footer {
   80% { transform: translateX(-50%) translateY(0); }
   100% { transform: translateX(-50%) translateY(100%); }
 }
+
+/* Contenedor para que no interfiera con el click en tus tarjetas */
+.bunny-rain-particle {
+  position: fixed;
+  top: -5vh;
+  z-index: 2000;
+  pointer-events: none;
+  font-size: 2rem;
+  filter: drop-shadow(0 0 8px white);
+  animation: bunny-fall-anim 3s linear forwards;
+}
+
+@keyframes bunny-fall-anim {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}

@@ -77,71 +77,62 @@ export default function Terminal() {
         break;
 
       case 'bunny':
-              // 1. Capa de oscurecimiento (Overlay)
-              const overlay = document.createElement('div');
-              Object.assign(overlay.style, {
-                position: 'fixed', inset: '0', backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                zIndex: '1999', transition: 'opacity 1s ease', opacity: '0', pointerEvents: 'none'
-              });
-              document.body.appendChild(overlay);
-              setTimeout(() => overlay.style.opacity = '1', 10);
+        // 1. Overlay (Mantenemos tu lógica de oscurecimiento que ya funcionaba)
+        const overlay = document.createElement('div');
+        Object.assign(overlay.style, {
+          position: 'fixed', inset: '0', backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          zIndex: '1999', transition: 'opacity 1s ease', opacity: '0', pointerEvents: 'none'
+        });
+        document.body.appendChild(overlay);
+        setTimeout(() => overlay.style.opacity = '1', 10);
 
-              // 2. Video del conejo
-              const bunnyVid = document.createElement('video');
-              bunnyVid.src = '/videos/bunny_peek.mp4'; 
-              bunnyVid.autoplay = true; bunnyVid.muted = true; bunnyVid.playsInline = true;
-              bunnyVid.className = 'bunny-nose-peek'; 
-              // Transición suavizada con cubic-bezier para evitar saltos visuales
-              bunnyVid.style.transition = 'all 1.6s cubic-bezier(0.4, 0, 0.2, 1)';
-              bunnyVid.style.zIndex = '2001';
-              document.body.appendChild(bunnyVid);
+        // 2. Video del conejo
+        const bunnyVid = document.createElement('video');
+        bunnyVid.src = '/videos/bunny_peek.mp4'; 
+        bunnyVid.autoplay = true; bunnyVid.muted = true; bunnyVid.playsInline = true;
+        bunnyVid.className = 'bunny-nose-peek'; 
+        bunnyVid.style.transition = 'all 1.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        bunnyVid.style.zIndex = '2001';
+        document.body.appendChild(bunnyVid);
 
-              // 3. Lluvia MASIVA de Estrellas y Emojis
-              const symbols = ['🐰', '🐇', '🐾', '⭐'];
-              for (let i = 0; i < 60; i++) {
-                setTimeout(() => {
-                  const p = document.createElement('div');
-                  p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-                  
-                  Object.assign(p.style, {
-                    position: 'fixed', top: '-10%', left: Math.random() * 100 + 'vw',
-                    fontSize: (Math.random() * 25 + 15) + 'px', zIndex: '2000',
-                    pointerEvents: 'none', opacity: '0', filter: 'drop-shadow(0 0 8px white)',
-                    transition: `transform ${Math.random() * 2 + 2}s linear, opacity 0.5s`
-                  });
-                  
-                  document.body.appendChild(p);
+        // 3. Lluvia con CSS (JS solo crea los nodos)
+        const symbols = ['🐰', '🐇', '🐾', '⭐', '✨'];
+        for (let i = 0; i < 60; i++) {
+          setTimeout(() => {
+            const p = document.createElement('div');
+            p.className = 'bunny-rain-particle';
+            p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // Posición horizontal aleatoria
+            p.style.left = Math.random() * 100 + 'vw';
+            // Variación de tamaño para dar profundidad
+            p.style.scale = Math.random() * 0.5 + 0.8;
+            
+            document.body.appendChild(p);
 
-                  requestAnimationFrame(() => {
-                    p.style.opacity = '1';
-                    p.style.transform = `translateY(115vh) rotate(${Math.random() * 720}deg)`;
-                  });
+            // Limpieza del nodo después de que termine la animación CSS
+            setTimeout(() => p.remove(), 3500);
+          }, i * 60); 
+        }
 
-                  setTimeout(() => p.remove(), 4000);
-                }, i * 80);
-              }
+        showStatus("BUNNY_SYSTEM_INJECTION 🐰✨");
 
-              showStatus("BUNNY_MAX_OVERDRIVE 🐰✨");
+        // 4. Cierre con el efecto de difuminación que ya pulimos
+        bunnyVid.onended = () => {
+          bunnyVid.style.filter = 'blur(50px) brightness(2.5) contrast(1.1)';
+          bunnyVid.style.transform = 'translateX(-50%) scale(1.1)';
+          bunnyVid.style.opacity = '0';
+          
+          setTimeout(() => {
+            overlay.style.opacity = '0';
+          }, 200);
 
-              // 4. Cierre con EFECTO DE DIFUMINACIÓN Y ESCALADO
-              bunnyVid.onended = () => {
-                // Subimos el brillo y el blur simultáneamente con un ligero zoom (scale)
-                // contrast(1.1) ayuda a que el destello se vea más "vivido" y no grisáceo
-                bunnyVid.style.filter = 'blur(50px) brightness(2.5) contrast(1.1)';
-                bunnyVid.style.transform = 'translateX(-50%) scale(1.1)';
-                bunnyVid.style.opacity = '0';
-                
-                // Sincronizamos la retirada del fondo oscuro
-                setTimeout(() => {
-                  overlay.style.opacity = '0';
-                }, 200);
-
-                setTimeout(() => {
-                  bunnyVid.remove();
-                  overlay.remove();
-                }, 1600);
-              };
-              break;
+          setTimeout(() => {
+            bunnyVid.remove();
+            overlay.remove();
+          }, 1600);
+        };
+        break;
 
       case 'hug':
         setHugHearts(Array.from({length:15}).map((_,i)=>({id:Date.now()+i, left:40+Math.random()*20, top:40+Math.random()*20, delay:Math.random()*0.5})));
