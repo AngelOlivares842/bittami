@@ -49,7 +49,11 @@ export default function Terminal() {
 
       case 'ymir':
         const isMimir = document.body.classList.toggle('mimir-mode');
+        
         if (isMimir) {
+          // ACTIVAR CURSOR YMIR
+          document.body.classList.add('ymir-cursor-active');
+
           const audio = new Audio('/sounds/ymir_purr.mp3');
           audio.volume = 0.1;
           audio.loop = true; 
@@ -70,12 +74,15 @@ export default function Terminal() {
           }
           showStatus("YMIR ESTÁ RELAJADO 🐈‍⬛✨");
         } else {
+          // DESACTIVAR CURSOR YMIR
+          document.body.classList.remove('ymir-cursor-active');
+
           const audio = document.getElementById('ymir-audio');
           if (audio) { audio.pause(); audio.remove(); }
           showStatus("MODO DIURNO");
         }
         break;
-
+        
       case 'bunny':
         // 1. Overlay (Mantenemos tu lógica de oscurecimiento que ya funcionaba)
         const overlay = document.createElement('div');

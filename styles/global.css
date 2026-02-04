@@ -9,6 +9,7 @@
 @layer base {
   body {
     @apply bg-ezquizo-dark text-slate-100 antialiased overflow-x-hidden transition-all duration-700;
+    cursor: url('/cursors/normal.cur'), auto !important;
   }
 }
 
@@ -80,6 +81,13 @@
   0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
   20% { opacity: 1; }
   100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Clase para el modo Ymir cursor */
+.ymir-cursor-active, 
+.ymir-cursor-active * {
+  /* Forzamos el mismo cursor para el body y todos sus hijos */
+  cursor: url('/cursors/ymir.cur') 16 16, auto !important;
 }
 
 /* --- EFECTO HACKED: Intrusión Silenciosa --- */
