@@ -149,6 +149,7 @@ export default function Terminal() {
 
       case 'clear':
         document.body.classList.remove('ezquizo-active', 'mimir-mode', 'hacked-mode');
+        document.body.classList.remove('ymir-cursor-active');
         const activeAudio = document.getElementById('ymir-audio');
         if (activeAudio) {
           activeAudio.pause();
