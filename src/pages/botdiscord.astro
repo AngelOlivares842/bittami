@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/MainLayout.astro';
+import { BotHeader, BentoCard } from '../components/BentoCard.jsx';
+import Footer from '../components/Footer.jsx';
+---
+
+<Layout title="BITTAMI | BOT DISCORD">
+  <main class="min-h-screen bg-[#0a0b14] text-white flex flex-col justify-between font-['Inter']">
+    
+    <div class="flex-grow flex items-center justify-center px-4 py-20">
+      <div class="max-w-[1200px] w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <BotHeader client:load />
+
+        <BentoCard client:load title="BOT STATUS" icon="●" colorClass="text-[#ff79c6]">
+          <div class="flex flex-col h-full justify-between py-2">
+            <div>
+              <div class="text-6xl font-[900] tracking-tighter text-white uppercase italic">Online</div>
+              <p class="text-[9px] text-white/20 uppercase tracking-[0.3em] mt-1">Host Sync / GMT-3</p>
+            </div>
+            <div class="mt-12">
+              <code class="text-[#bd93f9] text-[10px] font-mono opacity-30">v1.2.4-stable</code>
+            </div>
+          </div>
+        </BentoCard>
+
+        <BentoCard client:load title="TÉRMINOS" icon="📜" colorClass="text-[#ff79c6]">
+          <ul class="space-y-5">
+            <li class="flex gap-4"><span class="text-[#ff79c6] opacity-40">◆</span> Uso recreativo para la comunidad.</li>
+            <li class="flex gap-4"><span class="text-[#ff79c6] opacity-40">◆</span> Prohibido el acoso o difusión de datos.</li>
+            <li class="flex gap-4"><span class="text-[#ff79c6] opacity-40">◆</span> Baneo permanente por mal uso.</li>
+          </ul>
+        </BentoCard>
+
+        <BentoCard client:load title="PRIVACIDAD" icon="🔒" colorClass="text-[#bd93f9]">
+          <ul class="space-y-5">
+            <li class="flex gap-4"><span class="text-[#bd93f9] opacity-40">◆</span> Confesiones 100% anónimas al público.</li>
+            <li class="flex gap-4"><span class="text-[#bd93f9] opacity-40">◆</span> Registro de ID solo para moderación.</li>
+            <li class="flex gap-4"><span class="text-[#bd93f9] opacity-40">◆</span> Datos bajo infraestructura Bittami.</li>
+          </ul>
+        </BentoCard>
+
+        <BentoCard client:load title="SLASH COMMANDS" icon="⚡" colorClass="text-[#ff79c6]">
+          <div class="space-y-6 pt-2">
+            <div class="flex justify-between items-end border-b border-white/5 pb-4">
+              <code class="text-[#bd93f9] font-bold text-sm">/confesar</code>
+              <span class="text-[8px] uppercase tracking-widest text-white/20 font-bold">Enviar mensaje anónimo</span>
+            </div>
+            <div class="flex justify-between items-end">
+              <code class="text-[#bd93f9] font-bold text-sm">/info</code>
+              <span class="text-[8px] uppercase tracking-widest text-white/20 font-bold">Ver créditos sistema</span>
+            </div>
+          </div>
+        </BentoCard>
+
+      </div>
+    </div>
+
+    <Footer client:load />
+    
+  </main>
+</Layout>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+  
+  body { 
+    background-color: #0a0b14;
+    overflow-x: hidden;
+  }
+
+  /* Clases para asegurar el peso visual */
+  .italic { font-style: italic; }
+</style>
