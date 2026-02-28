@@ -44,7 +44,7 @@ export default function Footer() {
       <div className="text-center md:text-right flex flex-col items-center md:items-end gap-1">
         <p className="opacity-40 tracking-widest">100% AUTHENTIC WORK BY:</p>
         <a href="https://github.com/AngelOlivares842" target="_blank" className={`text-sm tracking-tighter italic ${isEzquizo ? 'animate-pulse text-red-600' : 'text-bitta-pink hover:text-white transition-colors font-bold'}`}>
-          {isEzquizo ? "ERR_0L1V4R3S" : "MEKODE Powered by Angel Olivares"}
+          {isEzquizo ? "ERR_0L1V4R3S" : "Powered by Mekode"}
         </a>
         <div className="flex gap-2 items-center opacity-30">
             <div className={`w-1.5 h-1.5 rounded-full ${isHacked ? 'bg-red-600' : 'bg-green-500'} animate-pulse`} />
