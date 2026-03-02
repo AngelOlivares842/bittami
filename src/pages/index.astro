@@ -11,7 +11,7 @@ import '../../styles/global.css';
         <script is:inline>
           (function() {
             // 1. Whitelist de dominios autorizados
-            const allowed = ['bittami.kalwrd.me', 'localhost', '127.0.0.1'];
+            const allowed = ['bittami.kalwrd.me', 'bittami.mekode.cl','localhost', '127.0.0.1'];
             const isAuth = allowed.some(d => window.location.hostname.includes(d));
 
             if (!isAuth) {
