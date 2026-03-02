@@ -25,7 +25,7 @@ export default function Footer() {
     <footer className={`w-full py-10 px-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest transition-all duration-500 ${isHacked ? 'bg-red-950/20' : 'bg-transparent'}`}>
       <div className="flex flex-col gap-2 items-center md:items-start opacity-40 hover:opacity-100 transition-opacity">
         <div className="flex items-center gap-1">
-          <a href="https://bittami.kalwrd.me/" className="hover:text-bitta-pink transition-colors">BittamiHub</a>
+          <a href="https://bittami.mekode.cl/" className="hover:text-bitta-pink transition-colors">BittamiHub</a>
           <span>© 2026</span>
         </div>
         <div className="flex items-center gap-2">
