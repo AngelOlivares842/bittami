@@ -11,7 +11,7 @@ import '../../styles/global.css';
         <script is:inline>
           (function() {
             // 1. Whitelist de dominios autorizados
-            const allowed = ['bittami.kalwrd.me', 'bittami.mekode.cl','localhost', '127.0.0.1'];
+            const allowed = ['bittami.kalwrd.me', 'bittami.mekode.cl','localhost', '127.0.0.1', 'www.mekode.cl'];
             const isAuth = allowed.some(d => window.location.hostname.includes(d));
 
             if (!isAuth) {
@@ -19,13 +19,13 @@ import '../../styles/global.css';
                 document.body.classList.add('hacked-mode');
                 setTimeout(() => {
                   alert("ACCESO NO AUTORIZADO: Este sitio es una copia. Redirigiendo al original de Bittami...");
-                  window.location.href = "https://bittami.kalwrd.me/";
+                  window.location.href = "https://bittami.mekode.cl/";
                 }, 3000);
               });
             }
 
             // 2. Marca de agua en consola y memoria
-            console.log("%c © 2026 ANGEL OLIVARES | AUTHENTIC WORK ", "background:#ffb7d5;color:#0f0d15;padding:10px;font-weight:bold;border-radius:5px;");
+            console.log("%c © 2026 MEKODE.CL | AUTHENTIC WORK ", "background:#ffb7d5;color:#0f0d15;padding:10px;font-weight:bold;border-radius:5px;");
             Object.defineProperty(window, 'PROJECT_OWNER', { value: 'Angel Olivares - INACAP 2026', writable: false });
           })();
         </script>
