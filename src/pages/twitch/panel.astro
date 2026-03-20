@@ -1,0 +1,45 @@
+---
+import TwitchLayout from '../../layouts/TwitchLayout.astro';
+import BentoGrid from '../../components/BentoGrid.jsx';
+import Footer from '../../components/Footer.jsx';
+---
+
+<TwitchLayout title="BITTAMI | TWITCH PANEL">
+  <main class="twitch-panel-wrapper overflow-x-hidden">
+    {/* Contenedor de seguridad para Twitch */}
+    <div class="twitch-context-provider">
+      <BentoGrid client:load />
+    </div>
+
+    {/* Footer integrado al estilo BittamiHub */}
+    <div class="px-6 pb-10">
+      <Footer client:load />
+    </div>
+  </main>
+</TwitchLayout>
+
+<style is:global>
+  /* Ajustes específicos para que el BentoGrid se adapte al panel estrecho de Twitch */
+  @media (max-width: 400px) {
+    .grid-cols-12 {
+      grid-template-columns: 1fr !important; /* Forzamos columna única en Twitch */
+    }
+    .md\:col-span-8, .md\:col-span-4, .md\:col-span-3, .md\:col-span-6 {
+      grid-column: span 1 !important;
+    }
+    .text-6xl { font-size: 3rem !important; }
+    .text-8xl { font-size: 4rem !important; }
+  }
+
+  /* Animación de sacudida para el modo Ezquizo que usas en tus clases */
+  .violent-shake {
+    animation: shake 0.1s infinite;
+  }
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+</style>
