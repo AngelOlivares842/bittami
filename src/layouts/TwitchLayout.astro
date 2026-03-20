@@ -9,6 +9,7 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <script is:inline src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors *;">
     <script is:inline>
     window.addEventListener('load', () => {
         console.log("BittamiHub: Intentando conectar con Twitch...");

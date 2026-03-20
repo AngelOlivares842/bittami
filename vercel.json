@@ -1,15 +1,15 @@
 {
   "headers": [
     {
-      "source": "/twitch/(.*)",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors https://*.twitch.tv https://*.twitch.js https://*.ttvnw.net"
+          "value": "frame-ancestors *"
         },
         {
-          "key": "X-Frame-Options",
-          "value": "ALLOW-FROM https://*.twitch.tv"
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     }
