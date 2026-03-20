@@ -1,5 +1,8 @@
 ---
-// Layout minimalista para que nada rompa el BentoGrid
+// 1. IMPORTANTE: Sin esta línea, Tailwind v4 no inyecta los estilos en este layout
+import '../../styles/global.css'; 
+
+// Layout adaptado para BittamiHub en Twitch
 const { title } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -8,22 +11,25 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    
     <script is:inline src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    
     <meta http-equiv="Content-Security-Policy" content="frame-ancestors *;">
+    
     <script is:inline>
     window.addEventListener('load', () => {
         console.log("BittamiHub: Intentando conectar con Twitch...");
-        if (window.Twitch) {
-        window.Twitch.ext.onAuthorized((auth) => {
-            console.log("BittamiHub: Autorizado correctamente");
-        });
+        if (window.Twitch && window.Twitch.ext) {
+            window.Twitch.ext.onAuthorized((auth) => {
+                console.log("✅ BittamiHub: Autorizado correctamente en Twitch");
+            });
         } else {
-        console.error("BittamiHub: No se detectó el helper de Twitch. Revisa el script en el head.");
+            console.error("❌ BittamiHub: No se detectó el helper de Twitch. Revisa el script en el head.");
         }
     });
     </script>
 </head>
-<body class="bg-[#0a0b14] overflow-x-hidden">
+<body class="bg-[#0a0b14] text-white overflow-x-hidden selection:bg-bitta-pink/30">
     <slot />
 </body>
 </html>
