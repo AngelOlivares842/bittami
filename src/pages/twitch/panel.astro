@@ -5,41 +5,66 @@ import Footer from '../../components/Footer.jsx';
 ---
 
 <TwitchLayout title="BITTAMI | TWITCH PANEL">
-  <main class="twitch-panel-wrapper overflow-x-hidden">
-    {/* Contenedor de seguridad para Twitch */}
-    <div class="twitch-context-provider">
+  <script is:inline>
+    (function() {
+      const allowed = ['mekode.cl', 'localhost', '127.0.0.1', 'ext-twitch.tv', 'ttvnw.net'];
+      const isAuth = allowed.some(d => window.location.hostname.toLowerCase().includes(d));
+
+      if (!isAuth) {
+        console.warn("⚠️ ACCESO EXTERNO DETECTADO: Modo Twitch activo.");
+        // No redirigimos aquí para evitar la pantalla en blanco en Twitch
+      }
+    })();
+  </script>
+
+  <main class="flex flex-col min-h-screen">
+    <div class="twitch-responsive-container">
       <BentoGrid client:load />
     </div>
-
-    {/* Footer integrado al estilo BittamiHub */}
-    <div class="px-6 pb-10">
+    
+    <div class="mt-auto pb-10 px-6 opacity-50 scale-90 origin-bottom">
       <Footer client:load />
     </div>
   </main>
 </TwitchLayout>
 
 <style is:global>
-  /* Ajustes específicos para que el BentoGrid se adapte al panel estrecho de Twitch */
-  @media (max-width: 400px) {
-    .grid-cols-12 {
-      grid-template-columns: 1fr !important; /* Forzamos columna única en Twitch */
+  /* AJUSTES PARA EL PANEL DE TWITCH (320px - 400px) */
+  @media (max-width: 480px) {
+    /* Forzamos que el grid de 12 columnas se apile verticalmente */
+    .grid-cols-12, .grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.5rem !important;
+      padding: 1rem !important;
     }
+
+    /* Forzamos que todas las tarjetas ocupen el ancho total del panel */
     .md\:col-span-8, .md\:col-span-4, .md\:col-span-3, .md\:col-span-6 {
-      grid-column: span 1 !important;
+      grid-column: span 12 !important;
+      width: 100% !important;
+      min-height: auto !important;
     }
-    .text-6xl { font-size: 3rem !important; }
-    .text-8xl { font-size: 4rem !important; }
+
+    /* Redimensionamos el título principal para que no se corte */
+    h1 {
+      font-size: 3.5rem !important;
+      line-height: 0.9 !important;
+      word-break: break-all;
+    }
+
+    /* Ajuste para las imágenes del avatar */
+    .relative.w-48 {
+      width: 120px !important;
+      margin: 0 auto;
+    }
   }
 
-  /* Animación de sacudida para el modo Ezquizo que usas en tus clases */
-  .violent-shake {
-    animation: shake 0.1s infinite;
-  }
-
+  /* Animaciones originales del BittaHub */
+  .violent-shake { animation: shake 0.1s infinite; }
   @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+    0% { transform: translate(1px, 1px); }
+    50% { transform: translate(-1px, -2px); }
+    100% { transform: translate(1px, -1px); }
   }
 </style>
