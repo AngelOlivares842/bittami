@@ -1,28 +1,25 @@
 ---
-// Layout minimalista para que nada rompa el BentoGrid
-const { title } = Astro.props;
+// src/layouts/TwitchLayout.astro
 ---
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    ```
+
+### 2. Carga Forzada del Helper de Twitch
+Asegúrate de que la librería de Twitch esté en el `<head>` y no al final del body. Además, vamos a agregarle un atributo para que cargue con prioridad:
+
+```html
+<head>
+    <meta charset="UTF-8" />
+    <script is:inline src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    
     <script is:inline>
-    window.addEventListener('load', () => {
-        console.log("BittamiHub: Intentando conectar con Twitch...");
-        if (window.Twitch) {
-        window.Twitch.ext.onAuthorized((auth) => {
-            console.log("BittamiHub: Autorizado correctamente");
-        });
-        } else {
-        console.error("BittamiHub: No se detectó el helper de Twitch. Revisa el script en el head.");
-        }
-    });
+      if (window.Twitch) {
+        console.log("✅ [BittaHub] Twitch Helper detectado correctamente.");
+      } else {
+        console.error("❌ [BittaHub] El Helper de Twitch falló al cargar.");
+      }
     </script>
 </head>
-<body class="bg-[#0a0b14] overflow-x-hidden">
-    <slot />
-</body>
-</html>
