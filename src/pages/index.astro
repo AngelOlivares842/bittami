@@ -11,7 +11,7 @@ import '../../styles/global.css';
         <script is:inline>
           (function() {
             // 1. Whitelist de dominios autorizados
-            const allowed = ['bittami.kalwrd.me', 'bittami.mekode.cl','localhost', '127.0.0.1', 'www.mekode.cl'];
+            const allowed = ['bittami.kalwrd.me', 'bittami.mekode.cl','localhost', '127.0.0.1', 'www.mekode.cl', 'ttvnw.net', 'ext-twitch.tv'];
             const isAuth = allowed.some(d => window.location.hostname.includes(d));
 
             if (!isAuth) {
@@ -26,7 +26,7 @@ import '../../styles/global.css';
 
             // 2. Marca de agua en consola y memoria
             console.log("%c © 2026 MEKODE.CL | AUTHENTIC WORK ", "background:#ffb7d5;color:#0f0d15;padding:10px;font-weight:bold;border-radius:5px;");
-            Object.defineProperty(window, 'PROJECT_OWNER', { value: 'Angel Olivares - INACAP 2026', writable: false });
+            Object.defineProperty(window, 'PROJECT_OWNER', { value: 'Angel Olivares - 2026', writable: false });
           })();
         </script>
     </head>
