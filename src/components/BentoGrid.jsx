@@ -33,8 +33,10 @@ export default function BentoGrid() {
   const [isYmirActive, setIsYmirActive] = useState(false);
   const [isHacked, setIsHacked] = useState(false);
   const [time, setTime] = useState(new Date());
+  const [mounted, setMounted] = useState(false); // Fix para Error #418
 
   useEffect(() => {
+    setMounted(true); // Indica que el componente ya está en el cliente
     const observer = new MutationObserver(() => {
       setIsEzquizo(document.body.classList.contains('ezquizo-active'));
       setIsYmirActive(document.body.classList.contains('mimir-mode'));
@@ -46,7 +48,12 @@ export default function BentoGrid() {
   }, [isEzquizo]);
 
   const bittaTitle = useGlitchText("BITTAMI", isEzquizo);
-  const getCountryTime = (tz) => time.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit', timeZone: tz });
+  
+  // Evitamos que el servidor y el cliente difieran en la hora inicial
+  const getCountryTime = (tz) => {
+    if (!mounted) return "--:--"; 
+    return time.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit', timeZone: tz });
+  };
 
   const getBioText = () => {
     if (isHacked) return "> CRITICAL_FAILURE: DATA_STREAM_INTERRUPTED. [ILLEGAL_ACCESS]";
@@ -67,7 +74,9 @@ export default function BentoGrid() {
                     </span>
                 </div>
                 <h1 className="text-6xl md:text-8xl font-black italic uppercase leading-none tracking-tighter">
-                    BIT<span className={isHacked || isEzquizo ? "text-red-600" : (isYmirActive ? "text-cyan-300" : "text-bitta-pink")}>{bittaTitle.substring(3)}</span>
+                    BIT<span className={isHacked || isEzquizo ? "text-red-600" : (isYmirActive ? "text-cyan-300" : "text-bitta-pink")}>
+                      {mounted ? bittaTitle.substring(3) : "TAMI"}
+                    </span>
                 </h1>
                 <p className={`text-slate-400 text-xs md:text-sm italic border-l-2 pl-4 transition-all duration-500 ${isHacked || isEzquizo ? 'border-red-900 text-red-500/50' : 'border-bitta-pink/20'}`}>
                     {getBioText()}
@@ -83,7 +92,7 @@ export default function BentoGrid() {
         <div className="flex flex-col h-full overflow-hidden">
           <div className="text-center mb-6 flex-shrink-0">
              <div className={`text-5xl font-black tracking-tighter ${isHacked || isEzquizo ? 'text-red-600 blur-[1px]' : 'text-white'}`}>
-                {isEzquizo ? "88:88" : time.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' })}
+                {!mounted ? "--:--" : (isEzquizo ? "88:88" : time.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' }))}
              </div>
              <p className="text-[8px] font-black uppercase opacity-20 tracking-[0.3em] mt-1">Host Sync / GMT-3</p>
           </div>
