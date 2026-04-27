@@ -5,33 +5,23 @@ import Footer from '../../components/Footer.jsx';
 ---
 
 <TwitchLayout title="BITTAMI | TWITCH PANEL">
-  <script is:inline>
-    (function() {
-      const allowed = ['mekode.cl', 'localhost', '127.0.0.1', 'ext-twitch.tv', 'ttvnw.net'];
-      const isAuth = allowed.some(d => window.location.hostname.toLowerCase().includes(d));
-
-      if (!isAuth) {
-        console.warn("⚠️ ACCESO EXTERNO DETECTADO: Modo Twitch activo.");
-        // No redirigimos aquí para evitar la pantalla en blanco en Twitch
-      }
-    })();
-  </script>
-
   <main class="flex flex-col min-h-screen">
     <div class="twitch-responsive-container">
-      <BentoGrid client:load />
+      {/* CAMBIO CRÍTICO: Usamos client:only="react" para que Astro no 
+        inyecte scripts de pre-renderizado que la CSP de Twitch bloquea.
+      */}
+      <BentoGrid client:only="react" />
     </div>
     
     <div class="mt-auto pb-10 px-6 opacity-50 scale-90 origin-bottom">
-      <Footer client:load />
+      <Footer client:only="react" />
     </div>
   </main>
 </TwitchLayout>
 
 <style is:global>
-  /* AJUSTES PARA EL PANEL DE TWITCH (320px - 400px) */
+  /* Mantenemos tus estilos de Mekode intactos */
   @media (max-width: 480px) {
-    /* Forzamos que el grid de 12 columnas se apile verticalmente */
     .grid-cols-12, .grid {
       display: flex !important;
       flex-direction: column !important;
@@ -39,28 +29,24 @@ import Footer from '../../components/Footer.jsx';
       padding: 1rem !important;
     }
 
-    /* Forzamos que todas las tarjetas ocupen el ancho total del panel */
     .md\:col-span-8, .md\:col-span-4, .md\:col-span-3, .md\:col-span-6 {
       grid-column: span 12 !important;
       width: 100% !important;
       min-height: auto !important;
     }
 
-    /* Redimensionamos el título principal para que no se corte */
     h1 {
       font-size: 3.5rem !important;
       line-height: 0.9 !important;
       word-break: break-all;
     }
 
-    /* Ajuste para las imágenes del avatar */
     .relative.w-48 {
       width: 120px !important;
       margin: 0 auto;
     }
   }
 
-  /* Animaciones originales del BittaHub */
   .violent-shake { animation: shake 0.1s infinite; }
   @keyframes shake {
     0% { transform: translate(1px, 1px); }

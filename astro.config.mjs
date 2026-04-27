@@ -1,10 +1,15 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite'; // Importamos el plugin de Vite
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  integrations: [react()], // Quitamos 'tailwind()' de aquí
+  integrations: [react()],
   vite: {
-    plugins: [tailwindcss()], // Lo añadimos aquí
+    plugins: [tailwindcss()],
+    build: {
+      // Esto asegura que Twitch no bloquee mini-assets inline
+      assetsInlineLimit: 0, 
+    },
   },
+  // HEMOS ELIMINADO LA SECCIÓN EXPERIMENTAL DE AQUÍ
 });

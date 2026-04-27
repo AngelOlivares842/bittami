@@ -1,24 +1,16 @@
 ---
-// 1. IMPORTANTE: Con esto, Astro inyecta el CSS con el nombre correcto automáticamente
 import '../../styles/global.css'; 
-
-// Layout adaptado para BittamiHub en Twitch
 const { title } = Astro.props;
 ---
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>    
-    
     <script is:inline src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
-    
     <script is:inline src="/twitch-init.js"></script>
-
     <meta http-equiv="Content-Security-Policy" content="frame-ancestors *;">
+    <title>{title}</title>
 </head>
-<body class="bg-[#0a0b14] text-white overflow-x-hidden selection:bg-bitta-pink/30">
+<body class="bg-[#0a0b14]">
     <slot />
 </body>
 </html>
