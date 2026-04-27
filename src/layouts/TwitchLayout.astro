@@ -1,5 +1,5 @@
 ---
-// 1. IMPORTANTE: Sin esta línea, Tailwind v4 no inyecta los estilos en este layout
+// 1. IMPORTANTE: Con esto, Astro inyecta el CSS con el nombre correcto automáticamente
 import '../../styles/global.css'; 
 
 // Layout adaptado para BittamiHub en Twitch
@@ -11,10 +11,12 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>    
-    <link rel="stylesheet" href="/_astro/global.css" type="text/css">
-    <meta http-equiv="Content-Security-Policy" content="frame-ancestors *;">
+    
+    <script is:inline src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    
     <script is:inline src="/twitch-init.js"></script>
 
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors *;">
 </head>
 <body class="bg-[#0a0b14] text-white overflow-x-hidden selection:bg-bitta-pink/30">
     <slot />
