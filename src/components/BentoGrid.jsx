@@ -10,7 +10,6 @@ import TwitchVault from './TwitchVault';
  * @author Angel Olivares (Mekode SpA)
  */
 
-// --- Sub-componente LiveStatus (Intacto) ---
 const LiveStatus = ({ isEzquizo, isHacked }) => {
   const [isLive, setIsLive] = useState(false);
   useEffect(() => {
@@ -18,8 +17,11 @@ const LiveStatus = ({ isEzquizo, isHacked }) => {
       try {
         const res = await fetch(`https://decapi.me/twitch/uptime/bittami`);
         const text = await res.text();
-        setIsLive(!text.includes("offline") && !text.includes("Channel not found"));
-      } catch (e) {}
+        const safeText = text.toLowerCase();
+        setIsLive(!safeText.includes("offline") && !safeText.includes("not found"));
+      } catch (e) {
+        setIsLive(false);
+      }
     };
     checkLive();
     const interval = setInterval(checkLive, 60000);
@@ -219,22 +221,16 @@ export default function BentoGrid() {
 
           <div className="w-px h-8 bg-white/10 hidden md:block"></div>
 
-          {/* Epic Games (NUEVO: Redirección Inteligente de Afiliado) */}
+          {/* Epic Games */}
           <div 
             onClick={() => {
-              // 1. Copiamos el código por si lo quieren pegar dentro del juego (ej: Fortnite)
               navigator.clipboard.writeText('BITTAMI');
-              
-              // 2. Avisamos al usuario para que sepa qué pasó
               alert('¡Código BITTAMI copiado! Listo para usar en juegos. Abriendo tienda web con el código activado...');
-              
-              // 3. Redirigimos con el parámetro de afiliado de Epic
               window.open('https://store.epicgames.com/?epic_creator_id=BITTAMI', '_blank');
             }} 
             className="flex items-center gap-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors group"
             title="Copiar código y activar en Epic Games"
           >
-            {/* Logo de Epic Games por CDN enmascarado para heredar colores */}
             <div 
               className={`w-5 h-5 flex-shrink-0 bg-current transition-colors ${isHacked || isEzquizo ? "text-red-900" : "text-bitta-pink"}`}
               style={{
