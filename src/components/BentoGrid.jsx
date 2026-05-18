@@ -18,7 +18,7 @@ const LiveStatus = ({ isEzquizo, isHacked }) => {
       try {
         const res = await fetch(`https://decapi.me/twitch/uptime/bittami`);
         const text = await res.text();
-        setIsLive(!text.includes("Offline") && !text.includes("Channel not found"));
+        setIsLive(!text.includes("offline") && !text.includes("Channel not found"));
       } catch (e) {}
     };
     checkLive();
