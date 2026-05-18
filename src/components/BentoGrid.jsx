@@ -1,15 +1,92 @@
 import React, { useState, useEffect } from 'react';
-import { Twitch, Instagram, Mail, ShieldCheck, Calendar } from 'lucide-react';
+import { Twitch, Instagram, Mail, ShieldCheck, Calendar, Server } from 'lucide-react';
 import { useGlitchText } from '../hooks/useGlitchText';
+import TwitchVault from './TwitchVault';
 
 /**
  * @project BITTAMI_HUB_CORE_V1
  * @uid 0x5a2f_99_AO_2026 // Firma única basada en tus iniciales y año
  * @license CC BY-NC-ND 4.0
- * @author Angel Olivares
+ * @author Angel Olivares (Mekode)
  * @warning Any unauthorized distribution or modification is a breach of copyright.
  */
 
+// --- NUEVO: Sub-componente para verificar Twitch en tiempo real ---
+const LiveStatus = ({ isEzquizo, isHacked }) => {
+  const [isLive, setIsLive] = useState(false);
+
+  useEffect(() => {
+    const checkLive = async () => {
+      try {
+        const res = await fetch(`https://decapi.me/twitch/uptime/bittami`);
+        const text = await res.text();
+        setIsLive(!text.includes("Offline") && !text.includes("Channel not found"));
+      } catch (e) {}
+    };
+    checkLive();
+    const interval = setInterval(checkLive, 60000); // Revisa cada minuto
+    return () => clearInterval(interval);
+  }, []);
+
+  if (isHacked || isEzquizo) return <span className="text-[11px] font-black uppercase">{isEzquizo ? "V01D" : "ERR0R"}</span>;
+
+  return (
+    <div className="flex items-center gap-2">
+      {isLive && (
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-bitta-pink opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-bitta-pink"></span>
+        </span>
+      )}
+      <span className="text-[11px] font-black uppercase">{isLive ? "EN VIVO" : "Offline"}</span>
+    </div>
+  );
+};
+
+// --- NUEVO: Sub-componente para el Server de la Comunidad ---
+const MinecraftWidget = ({ isHacked, isEzquizo }) => {
+  const [server, setServer] = useState({ online: false, players: 0, max: 0, loading: true });
+  // Coloca aquí la IP o el túnel de Playit que uses para el server de la comunidad/tarreo
+  const ip = "bitta-tarreo.playit.gg"; 
+
+  useEffect(() => {
+    const fetchMc = async () => {
+      try {
+        const res = await fetch(`https://api.mcsrvstat.us/3/${ip}`);
+        const data = await res.json();
+        setServer({ online: !!data.online, players: data.players?.online || 0, max: data.players?.max || 0, loading: false });
+      } catch (e) {
+        setServer({ online: false, players: 0, max: 0, loading: false });
+      }
+    };
+    fetchMc();
+    const interval = setInterval(fetchMc, 120000); // Revisa cada 2 minutos
+    return () => clearInterval(interval);
+  }, [ip]);
+
+  if (isHacked || isEzquizo) {
+    return (
+      <div className="flex justify-between items-center bg-white/[0.02] p-2 rounded-xl border border-white/5">
+        <span className="text-[9px] font-black uppercase italic opacity-50 text-red-500">PaperMC_Core</span>
+        <span className="text-[9px] font-bold tracking-widest text-red-800">C0Rrupt</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex justify-between items-center bg-white/[0.02] p-2 rounded-xl border border-white/5">
+      <div className="flex flex-col">
+          <span className="text-[9px] font-black uppercase italic opacity-80 text-green-400">PaperMC Server</span>
+          {server.online && <span className="text-[7px] text-white/40 font-mono tracking-widest">{ip}</span>}
+      </div>
+      <span className={`text-[9px] font-bold tracking-widest ${server.loading ? 'text-white/30' : (server.online ? 'text-white' : 'text-red-500')}`}>
+        {server.loading ? 'PING...' : (server.online ? `${server.players}/${server.max} LOBBY` : 'OFFLINE')}
+      </span>
+    </div>
+  );
+};
+
+// --- Tu Componente Original de la Tarjeta ---
 const Card = ({ children, className, title, onClick, isHacked, isEzquizo }) => {
   const corrupt = (text) => {
     if (!isEzquizo) return text;
@@ -117,21 +194,29 @@ export default function BentoGrid() {
                   </div>
               ))}
             </div>
+
+            {/* --- NUEVA SECCIÓN DE INFRAESTRUCTURA --- */}
+            <div className="pt-4 border-t border-white/10 space-y-2 mt-4">
+              <h4 className="text-[8px] font-black uppercase opacity-20 flex items-center gap-2 mb-1"><Server size={10}/> Infraestructura</h4>
+              <MinecraftWidget isHacked={isHacked} isEzquizo={isEzquizo} />
+            </div>
+
           </div>
         </div>
       </Card>
 
-      <Card className="md:col-span-3 flex items-center justify-center gap-4" isHacked={isHacked} isEzquizo={isEzquizo} onClick={() => window.open('https://twitch.tv/bittami')}>
+      <Card className="md:col-span-3 flex items-center justify-center gap-4 cursor-pointer hover:bg-white/5" isHacked={isHacked} isEzquizo={isEzquizo} onClick={() => window.open('https://twitch.tv/bittami')}>
         <Twitch size={24} className={isHacked || isEzquizo ? "text-red-900" : "text-bitta-purple"} />
-        <span className="text-[11px] font-black uppercase">{isEzquizo ? "V01D" : "Live"}</span>
+        {/* --- REEMPLAZO DINÁMICO DE TWITCH --- */}
+        <LiveStatus isHacked={isHacked} isEzquizo={isEzquizo} />
       </Card>
 
-      <Card className="md:col-span-3 flex items-center justify-center gap-4" isHacked={isHacked} isEzquizo={isEzquizo} onClick={() => window.open('https://instagram.com/bittami.vt')}>
+      <Card className="md:col-span-3 flex items-center justify-center gap-4 cursor-pointer hover:bg-white/5" isHacked={isHacked} isEzquizo={isEzquizo} onClick={() => window.open('https://instagram.com/bittami.vt')}>
         <Instagram size={24} className={isHacked || isEzquizo ? "text-red-900" : "text-bitta-pink"} />
         <span className="text-[11px] font-black uppercase">Feed</span>
       </Card>
 
-      <Card className="md:col-span-6 flex items-center justify-between group h-full" isHacked={isHacked} isEzquizo={isEzquizo} onClick={() => window.location.href='mailto:bittami.mp@gmail.com'}>
+      <Card className="md:col-span-6 flex items-center justify-between group h-full cursor-pointer hover:bg-white/5" isHacked={isHacked} isEzquizo={isEzquizo} onClick={() => window.location.href='mailto:bittami.mp@gmail.com'}>
         <div className="flex items-center gap-4">
             <Mail size={16} className={isHacked || isEzquizo ? "text-red-900" : "text-bitta-pink"} />
             <span className="text-xs font-bold tracking-tight">{isHacked || isEzquizo ? "ERR0R_DATA_NULL" : "bittami.mp@gmail.com"}</span>
@@ -154,6 +239,7 @@ export default function BentoGrid() {
           </div>
         </div>
       )}
+      <TwitchVault isHacked={isHacked} isEzquizo={isEzquizo} />
     </div>
   );
 }
