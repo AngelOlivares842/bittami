@@ -186,7 +186,7 @@ export default function BentoGrid() {
               {['Viernes', 'Sábado', 'Domingo'].map(d => (
                   <div key={d} className="flex justify-between items-center bg-white/[0.02] p-2 rounded-xl border border-white/5">
                       <span className="text-[9px] font-black uppercase italic opacity-50">{d}</span>
-                      <span className={`text-[9px] font-bold tracking-widest ${isHacked || isEzquizo ? 'text-red-800' : 'text-bitta-pink'}`}>20:00H</span>
+                      <span className={`text-[9px] font-bold tracking-widest ${isHacked || isEzquizo ? 'text-red-800' : 'text-bitta-pink'}`}>19:00H</span>
                   </div>
               ))}
             </div>
