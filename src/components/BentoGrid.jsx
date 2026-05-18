@@ -199,18 +199,19 @@ export default function BentoGrid() {
         </div>
       </Card>
 
-      {/* 2. NUEVA SECCIÓN MEDIA: Redes Consolidadas + Proyectos */}
-      
-      {/* 2.1 Tarjeta Unificada de Contacto y Redes (Col-span-12 para ocupar todo el ancho) */}
+      {/* 2. NUEVA SECCIÓN MEDIA: Redes Consolidadas + Epic Games */}
       <Card className="md:col-span-12 h-auto py-4" isHacked={isHacked} isEzquizo={isEzquizo}>
         <div className="flex flex-wrap items-center justify-around gap-4 md:gap-8">
+          
+          {/* Twitch */}
           <div onClick={() => window.open('https://twitch.tv/bittami')} className="flex items-center gap-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">
             <Twitch size={20} className={isHacked || isEzquizo ? "text-red-900" : "text-bitta-purple"} />
             <LiveStatus isHacked={isHacked} isEzquizo={isEzquizo} />
           </div>
           
-          <div className="w-px h-8 bg-white/10 hidden md:block"></div> {/* Separador visual */}
+          <div className="w-px h-8 bg-white/10 hidden md:block"></div>
 
+          {/* Instagram */}
           <div onClick={() => window.open('https://instagram.com/bittami.vt')} className="flex items-center gap-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">
             <Instagram size={20} className={isHacked || isEzquizo ? "text-red-900" : "text-bitta-pink"} />
             <span className="text-[10px] font-black uppercase">Instagram</span>
@@ -218,14 +219,55 @@ export default function BentoGrid() {
 
           <div className="w-px h-8 bg-white/10 hidden md:block"></div>
 
+          {/* Epic Games (NUEVO: Redirección Inteligente de Afiliado) */}
+          <div 
+            onClick={() => {
+              // 1. Copiamos el código por si lo quieren pegar dentro del juego (ej: Fortnite)
+              navigator.clipboard.writeText('BITTAMI');
+              
+              // 2. Avisamos al usuario para que sepa qué pasó
+              alert('¡Código BITTAMI copiado! Listo para usar en juegos. Abriendo tienda web con el código activado...');
+              
+              // 3. Redirigimos con el parámetro de afiliado de Epic
+              window.open('https://store.epicgames.com/?epic_creator_id=BITTAMI', '_blank');
+            }} 
+            className="flex items-center gap-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors group"
+            title="Copiar código y activar en Epic Games"
+          >
+            {/* Logo de Epic Games por CDN enmascarado para heredar colores */}
+            <div 
+              className={`w-5 h-5 flex-shrink-0 bg-current transition-colors ${isHacked || isEzquizo ? "text-red-900" : "text-bitta-pink"}`}
+              style={{
+                WebkitMaskImage: 'url("https://cdn.simpleicons.org/epicgames")',
+                WebkitMaskSize: 'contain',
+                WebkitMaskPosition: 'center',
+                WebkitMaskRepeat: 'no-repeat',
+                maskImage: 'url("https://cdn.simpleicons.org/epicgames")',
+                maskSize: 'contain',
+                maskPosition: 'center',
+                maskRepeat: 'no-repeat',
+              }}
+            />
+            <div className="flex flex-col">
+              <span className="text-[8px] font-black uppercase opacity-50">Epic Games</span>
+              <span className="text-xs font-bold tracking-tight group-hover:text-bitta-pink transition-colors">
+                {isHacked || isEzquizo ? "ERR0R" : "Code: BITTAMI"}
+              </span>
+            </div>
+          </div>
+
+          <div className="w-px h-8 bg-white/10 hidden md:block"></div>
+
+          {/* Mail */}
           <div onClick={() => window.location.href='mailto:bittami.mp@gmail.com'} className="flex items-center gap-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">
             <Mail size={20} className={isHacked || isEzquizo ? "text-red-900" : "text-bitta-pink"} />
             <span className="text-xs font-bold tracking-tight">{isHacked || isEzquizo ? "ERR0R" : "bittami.mp@gmail.com"}</span>
           </div>
+
         </div>
       </Card>
 
-      {/* 3. SECCIÓN MÚSICA: Playlists de Spotify (Grandes, tal cual pediste) */}
+      {/* 3. SECCIÓN MÚSICA: Playlists de Spotify (Grandes) */}
       <Card className="md:col-span-6 md:row-span-2 !p-4" title="EZQUIZO PLAYLIST" isHacked={isHacked} isEzquizo={isEzquizo}>
         <iframe 
           data-testid="embed-iframe" 
